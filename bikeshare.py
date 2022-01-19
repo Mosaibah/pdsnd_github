@@ -60,7 +60,7 @@ def load_data(city, month, day):
         month = months.index(month) + 1
         df =df[df['month'] == month]
     return df
-def display_raw_data(df):
+def view_raw_data(df):
     """"
     Display subsequent rows of data accroding user answer 
     """
@@ -139,7 +139,7 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        display_raw_data(df)
+        view_raw_data(df)
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
