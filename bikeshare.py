@@ -1,13 +1,14 @@
 import time
 import pandas as pd
 import numpy as np
+import calendar # used in time_state
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 def get_filters():
     
     """
-    Asks user to specify a City, Month, and Day to analyze.
+    Asks user to specify a city, month, and day to analyze.
     Returns:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
@@ -55,11 +56,14 @@ def load_data(city, month, day):
     df['day_of_week']=df['Start Time'].dt.day_name()
     # filter by month 
     if month != 'all':
-        months =months = ['january','february','march','april','may','june']
+        months = ['january','february','march','april','may','june']
         month = months.index(month) + 1
         df =df[df['month'] == month]
+    if day != 'all':
+       
+        df =df[df['day_of_week'] == day.title()]
     return df
-def view_raw_data(df):
+def display_raw_data(df):
     """"
     Display subsequent rows of data accroding user answer 
     """
@@ -138,7 +142,7 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        view_raw_data(df)
+        display_raw_data(df)
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
